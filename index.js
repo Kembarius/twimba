@@ -3,7 +3,12 @@ import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 
 tweetsData.forEach(tweet => {
         tweet.isRepliesVisible = false;
+        tweet.profilePic = `public/${tweet.profilePic}`
+        tweet.replies.forEach(reply => {
+            reply.profilePic = `public/${reply.profilePic}`
+        })
     })
+console.log(tweetsData)
 
 document.addEventListener('click', function(e){
     if(e.target.dataset.like){
@@ -67,7 +72,7 @@ function handleTweetBtnClick(){
     if(tweetInput.value){
         tweetsData.unshift({
             handle: `@Scrimba`,
-            profilePic: `./images/scrimbalogo.png`,
+            profilePic: `public/images/scrimbalogo.png`,
             likes: 0,
             retweets: 0,
             tweetText: tweetInput.value,
@@ -92,7 +97,7 @@ function handleReplyBtn(replyId) {
         
         targetTweetObjectReplies.unshift({
                 handle: `@Scrimba`,
-                profilePic: `./images/scrimbalogo.png`,
+                profilePic: `public/images/scrimbalogo.png`,
                 tweetText: replyInput.value,
             })
         render()
@@ -160,7 +165,7 @@ function getFeedHtml(){
                         </div>
                         <div class="tweet-reply ${repliesClass}" id="reply-${tweet.uuid}">
                             <div class="tweet-inner">
-                            <img src="images/scrimbalogo.png" class="profile-pic">
+                            <img src="public/images/scrimbalogo.png" class="profile-pic">
                                 <div class="reply-inner">
                                     <textarea placeholder="Post your reply" id="input-${tweet.uuid}"></textarea>
                                     <button id="reply-btn" data-replybtn="${tweet.uuid}">Reply</button>
